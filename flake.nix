@@ -7,9 +7,13 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    neovim = {
+      url = "github:Lumesque/nixvim-config";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs , homeManager, ...}@inputs: 
+  outputs = { self, nixpkgs , homeManager, neovim, ...}@inputs: 
   let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
@@ -18,13 +22,16 @@
       nix build '.#homeConfigurations."lumesque".activationPackage'
       ./result/activate
     '';
+    neovim-package = neovim.packages.${system}.default;
   in
   {
     packages.${system}.default = homeManager.packages.${system}.default;
     homeConfigurations = {
       "lumesque" = homeManager.lib.homeManagerConfiguration {
         inherit pkgs;
-        extraSpecialArgs = {inherit inputs pkgs build-command;};
+        extraSpecialArgs = {
+          inherit inputs pkgs build-command neovim-package;
+        };
         modules = [ ./home.nix ];
       };
     };
