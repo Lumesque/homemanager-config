@@ -34,12 +34,18 @@
       cd ~/.config/home-manager
       nix build '.#homeConfigurations."lumesque".activationPackage'
     '';
+    home-update-build = pkgs.writeShellScriptBin "home-update-source" ''
+      cd ~/.config/home-manager
+      nix flake update && home-build-source
+    '';
     neovim-package = neovim.packages.${system}.default;
     python-packages = (pkgs.python312.withPackages (pp: [
       pp.ipython
     ]));
     system-pkgs = [
       pkgs.jq
+      pkgs.fzf
+      pkgs.ripgrep
       pkgs.zigpkgs."0.13.0"
       pkgs.rust-bin.beta."2024-08-05".default
     ];
@@ -47,6 +53,7 @@
       neovim-package
       build-command
       build-source-command
+      home-update-build
       python-packages
     ] ++ system-pkgs;
   in
