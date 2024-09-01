@@ -11,12 +11,21 @@
       url = "github:Lumesque/nixvim-config";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    zig-overlay = {
+      url = "github:mitchellh/zig-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs , homeManager, neovim, ...}@inputs:
+  outputs = { self, nixpkgs , homeManager, neovim, rust-overlay, zig-overlay, ...}@inputs:
   let
     system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
+    overlays = [ (import rust-overlay) zig-overlay.overlays.default ];
+    pkgs = import nixpkgs {inherit system overlays;};
     build-source-command = pkgs.writeShellScriptBin "home-build-source" ''
       cd ~/.config/home-manager
       nix build '.#homeConfigurations."lumesque".activationPackage' && ./result/activate
@@ -31,6 +40,8 @@
     ]));
     system-pkgs = [
       pkgs.jq
+      pkgs.zigpkgs."0.13.0"
+      pkgs.rust-bin.beta."2024-08-05".default
     ];
     list-of-pkgs = [
       neovim-package
