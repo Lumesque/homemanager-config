@@ -235,11 +235,11 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1725205598,
-        "narHash": "sha256-cJqI17V+M3kucxDeiW+p0tcmJ6z4tmR2Y2n8S6Ng2ZU=",
+        "lastModified": 1725211508,
+        "narHash": "sha256-SHs3IRpwqA3VnyA+osv8g2Aptz7Mz35cvarsdWdw000=",
         "owner": "Lumesque",
         "repo": "nixvim-config",
-        "rev": "76bb7aa0b4c98f521e3b4a89d974dfd9e32395b4",
+        "rev": "51d125f63af292a02a50890c46ea7bc41d6690c5",
         "type": "github"
       },
       "original": {
