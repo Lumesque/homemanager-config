@@ -1,14 +1,8 @@
-{pkgs, build-command, neovim-package, ...}: {
+{list-of-pkgs, ...}: {
   home = {
     username = "lumesque";
     homeDirectory = "/home/lumesque";
-    packages = [
-      (pkgs.python312.withPackages (pp: [
-        pp.ipython
-      ]))
-      build-command
-      neovim-package
-    ];
+    packages = list-of-pkgs;
     stateVersion = "24.05";
   };
   programs.home-manager.enable = true;

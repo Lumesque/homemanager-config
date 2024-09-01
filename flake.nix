@@ -13,16 +13,31 @@
     };
   };
 
-  outputs = { self, nixpkgs , homeManager, neovim, ...}@inputs: 
+  outputs = { self, nixpkgs , homeManager, neovim, ...}@inputs:
   let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
-    build-command = pkgs.writeShellScriptBin "home-build-source" ''
+    build-source-command = pkgs.writeShellScriptBin "home-build-source" ''
+      cd ~/.config/home-manager
+      nix build '.#homeConfigurations."lumesque".activationPackage' && ./result/activate
+    '';
+    build-command = pkgs.writeShellScriptBin "home-build" ''
       cd ~/.config/home-manager
       nix build '.#homeConfigurations."lumesque".activationPackage'
-      ./result/activate
     '';
     neovim-package = neovim.packages.${system}.default;
+    python-packages = (pkgs.python312.withPackages (pp: [
+      pp.ipython
+    ]));
+    system-pkgs = [
+      pkgs.jq
+    ];
+    list-of-pkgs = [
+      neovim-package
+      build-command
+      build-source-command
+      python-packages
+    ] ++ system-pkgs;
   in
   {
     packages.${system}.default = homeManager.packages.${system}.default;
@@ -30,7 +45,7 @@
       "lumesque" = homeManager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = {
-          inherit inputs pkgs build-command neovim-package;
+          inherit list-of-pkgs;
         };
         modules = [ ./home.nix ];
       };
