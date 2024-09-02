@@ -1,0 +1,15 @@
+on: [push, pull_request]
+name: Check No Updates Needed
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: cachix/install-nix-action@V27
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Run needs update script
+        run: |
+          ./_checks/needs_update.sh
+        shell: bash
