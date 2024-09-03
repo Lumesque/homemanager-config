@@ -48,6 +48,7 @@
       pkgs.ripgrep
       pkgs.zigpkgs."0.13.0"
       pkgs.rust-bin.beta."2024-08-05".default
+      pkgs.direnv
     ];
     list-of-pkgs = [
       neovim-package

@@ -32,6 +32,12 @@ in
     rev = "1ddd58fcd046eb29422c7287306530f0b7a7c00b";
     hash = "sha256-BVQgQOnPcqIf4eqLrmuUCvZahyEDKzBgJUeppLQWjQY=";
   };
+  "direnv" = pkgs.fetchFromGitHub {
+    owner = "oh-my-fish";
+    repo = "plugin-direnv";
+    rev = "0221a4d9080b5f492f1b56ff7b2dc6287f58d47f";
+    hash = "sha256-50tMKwtXtJBpgZ42JfJKyIWgusu4xZ9/yCiGKDfqyhE=";
+  };
   "chain-theme" = pkgs.stdenv.mkDerivation {
       name = "chain-theme";
       src = pkgs.fetchFromGitHub {
