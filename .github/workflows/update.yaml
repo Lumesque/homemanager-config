@@ -14,8 +14,8 @@ jobs:
       - run: |
           ./_checks/needs_update.sh && exit 0
           nix flake update
-          git config user.email Lumesque@users.noreply.github.com
-          git config user.name  homemanager-config
+          git config --global user.email Lumesque@users.noreply.github.com
+          git config --global user.name  homemanager-config
           git add flake.lock
-          git commit -m 'updating' | true
-          git push -u origin main
+          git commit -am 'Automatic update'
+          git push origin main
