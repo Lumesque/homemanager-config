@@ -9,6 +9,9 @@ in
     shellAbbrs = {
       ls = "ls -aF --color=always";
     };
+    interactiveShellInit = ''
+      fish_vi_key_bindings
+    '';
     plugins = [
       plugin-sources.oh-my-fish
       plugin-sources.chain-theme

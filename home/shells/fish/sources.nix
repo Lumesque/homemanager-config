@@ -1,4 +1,9 @@
 {pkgs, ...}:
+let
+  shell_info_addition = ''
+    set -l nix_shell_info (if test -n "$IN_NIX_SHELL"; builtin set_color yellow; echo -n "<nix-shell>-"; builtin set_color normal; end)
+  '';
+in
 {
   "oh-my-fish" = pkgs.stdenv.mkDerivation {
      name = "oh-my-fish";
@@ -27,10 +32,20 @@
     rev = "1ddd58fcd046eb29422c7287306530f0b7a7c00b";
     hash = "sha256-BVQgQOnPcqIf4eqLrmuUCvZahyEDKzBgJUeppLQWjQY=";
   };
-  "chain-theme" = pkgs.fetchFromGitHub {
-    owner = "oh-my-fish";
-    repo = "theme-chain";
-    rev = "1cffea20b15bbcd11e578cd88dca097cc2ca23f4";
-    hash = "sha256-9czP3f634SXifCdFK9tGcuFG/Z7/+58BxxAD4FzPrz0=";
+  "chain-theme" = pkgs.stdenv.mkDerivation {
+      name = "chain-theme";
+      src = pkgs.fetchFromGitHub {
+        owner = "oh-my-fish";
+        repo = "theme-chain";
+        rev = "1cffea20b15bbcd11e578cd88dca097cc2ca23f4";
+        hash = "sha256-9czP3f634SXifCdFK9tGcuFG/Z7/+58BxxAD4FzPrz0=";
+      };
+      buildPhase = ''
+        mkdir -p $out
+        cp -r * $out
+        sed -i '31i \
+          if test -n "$IN_NIX_SHELL"; builtin set_color yellow; echo -n "<nix-shell>-"; builtin set_color normal; end \
+        ' $out/functions/fish_prompt.fish
+      '';
   };
 }
