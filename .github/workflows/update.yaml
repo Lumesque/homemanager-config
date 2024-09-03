@@ -3,6 +3,8 @@ on:
   push:
   schedule:
     - cron: '0 */12 * * *'
+permissions:
+  contents: read | write
 jobs:
   update-lock-file:
     runs-on: ubuntu-latest
