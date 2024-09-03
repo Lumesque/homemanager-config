@@ -65,7 +65,7 @@
         extraSpecialArgs = {
           inherit list-of-pkgs;
         };
-        modules = [ ./home.nix ];
+        modules = [ ./home ];
       };
     };
   };

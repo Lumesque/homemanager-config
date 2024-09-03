@@ -1,4 +1,7 @@
 {list-of-pkgs, ...}: {
+  imports = [
+    ./shells/fish
+  ];
   home = {
     username = "lumesque";
     homeDirectory = "/home/lumesque";
