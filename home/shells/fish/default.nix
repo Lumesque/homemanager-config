@@ -14,8 +14,8 @@ in
     '';
     plugins = [
       plugin-sources.oh-my-fish
-      plugin-sources.chain-theme
-      plugin-sources.vcs
+      plugin-sources.default-theme
+      plugin-sources.direnv
     ];
     functions = {
       cdf = "cd $(dirname $(fzf))";

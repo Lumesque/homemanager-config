@@ -6,9 +6,8 @@ let
     src = sources.${name};
   };
 in
-{
-  "default-theme" = mkDefault "default-theme";
-  "chain-theme" = mkDefault "chain-theme";
-  "vcs" = mkDefault "vcs";
-  "oh-my-fish" = mkDefault "oh-my-fish";
-}
+  builtins.listToAttrs (
+    (builtins.map
+      (k: { name = k; value = mkDefault k;})
+    ) (builtins.attrNames sources)
+  )
