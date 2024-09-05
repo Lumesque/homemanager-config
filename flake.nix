@@ -19,9 +19,13 @@
       url = "github:mitchellh/zig-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zen-browser = {
+      url = "github:MarceColl/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs , homeManager, neovim, rust-overlay, zig-overlay, ...}@inputs:
+  outputs = { self, nixpkgs , homeManager, neovim, rust-overlay, zig-overlay, zen-browser, ...}@inputs:
   let
     system = "x86_64-linux";
     overlays = [ (import rust-overlay) zig-overlay.overlays.default ];
@@ -30,6 +34,7 @@
     python-packages = (pkgs.python312.withPackages (pp: [
       pp.ipython
     ]));
+    browser-package = zen-browser.packages.${system}.default;
     bin-packages = import ./bin.nix {inherit pkgs;};
     system-pkgs = [
       pkgs.jq
@@ -43,6 +48,7 @@
     list-of-pkgs = [
       neovim-package
       python-packages
+      browser-package
     ] ++ system-pkgs ++ (builtins.attrValues bin-packages);
   in
   {
