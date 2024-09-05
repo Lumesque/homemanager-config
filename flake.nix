@@ -29,6 +29,12 @@
     dev-tmux = pkgs.writeShellScriptBin "dev-tmux" ''
      ${builtins.readFile ./scripts/tmux_startup.sh}
     '';
+    c-qwert = pkgs.writeShellScriptBin "c-qwert" ''
+      ${builtins.readFile ./scripts/qwert_to_dvorak.sh}
+    '';
+    c-dvorak = pkgs.writeShellScriptBin "c-dvorak" ''
+      ${builtins.readFile ./scripts/dvorak_to_qwert.sh}
+    '';
     build-source-command = pkgs.writeShellScriptBin "home-build-source" ''
       cd ~/.config/home-manager
       nix build '.#homeConfigurations."lumesque".activationPackage' && ./result/activate
@@ -52,11 +58,14 @@
       pkgs.zigpkgs."0.13.0"
       pkgs.rust-bin.beta."2024-08-05".default
       pkgs.direnv
+      pkgs.xorg.xkbcomp
     ];
     list-of-pkgs = [
       neovim-package
       build-command
       build-source-command
+      c-qwert
+      c-dvorak
       dev-tmux
       home-update-build
       python-packages
