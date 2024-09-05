@@ -1,6 +1,7 @@
 {list-of-pkgs, ...}: {
   imports = [
     ./shells/fish
+    ./tmux
   ];
   home = {
     username = "lumesque";

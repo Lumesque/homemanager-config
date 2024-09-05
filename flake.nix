@@ -26,6 +26,9 @@
     system = "x86_64-linux";
     overlays = [ (import rust-overlay) zig-overlay.overlays.default ];
     pkgs = import nixpkgs {inherit system overlays;};
+    dev-tmux = pkgs.writeShellScriptBin "dev-tmux" ''
+     ${builtins.readFile ./scripts/tmux_startup.sh}
+    '';
     build-source-command = pkgs.writeShellScriptBin "home-build-source" ''
       cd ~/.config/home-manager
       nix build '.#homeConfigurations."lumesque".activationPackage' && ./result/activate
@@ -54,6 +57,7 @@
       neovim-package
       build-command
       build-source-command
+      dev-tmux
       home-update-build
       python-packages
     ] ++ system-pkgs;
