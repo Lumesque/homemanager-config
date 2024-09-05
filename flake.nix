@@ -26,31 +26,11 @@
     system = "x86_64-linux";
     overlays = [ (import rust-overlay) zig-overlay.overlays.default ];
     pkgs = import nixpkgs {inherit system overlays;};
-    dev-tmux = pkgs.writeShellScriptBin "dev-tmux" ''
-     ${builtins.readFile ./scripts/tmux_startup.sh}
-    '';
-    c-qwert = pkgs.writeShellScriptBin "c-qwert" ''
-      ${builtins.readFile ./scripts/qwert_to_dvorak.sh}
-    '';
-    c-dvorak = pkgs.writeShellScriptBin "c-dvorak" ''
-      ${builtins.readFile ./scripts/dvorak_to_qwert.sh}
-    '';
-    build-source-command = pkgs.writeShellScriptBin "home-build-source" ''
-      cd ~/.config/home-manager
-      nix build '.#homeConfigurations."lumesque".activationPackage' && ./result/activate
-    '';
-    build-command = pkgs.writeShellScriptBin "home-build" ''
-      cd ~/.config/home-manager
-      nix build '.#homeConfigurations."lumesque".activationPackage'
-    '';
-    home-update-build = pkgs.writeShellScriptBin "home-update-source" ''
-      cd ~/.config/home-manager
-      nix flake update && home-build-source
-    '';
     neovim-package = neovim.packages.${system}.default;
     python-packages = (pkgs.python312.withPackages (pp: [
       pp.ipython
     ]));
+    bin-packages = import ./bin.nix {inherit pkgs;};
     system-pkgs = [
       pkgs.jq
       pkgs.fzf
@@ -62,14 +42,8 @@
     ];
     list-of-pkgs = [
       neovim-package
-      build-command
-      build-source-command
-      c-qwert
-      c-dvorak
-      dev-tmux
-      home-update-build
       python-packages
-    ] ++ system-pkgs;
+    ] ++ system-pkgs ++ (builtins.attrValues bin-packages);
   in
   {
     packages.${system}.default = homeManager.packages.${system}.default;
