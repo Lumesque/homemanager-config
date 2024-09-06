@@ -2,6 +2,8 @@
   imports = [
     ./shells/fish
     ./tmux
+    # Currently on non-nix os systems, you need to install nixGL in order for this to work
+    # ./terminals/kitty
   ];
   home = {
     username = "lumesque";

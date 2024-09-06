@@ -23,12 +23,16 @@
       url = "github:MarceColl/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixgl = {
+      url = "github:nix-community/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs , homeManager, neovim, rust-overlay, zig-overlay, zen-browser, ...}@inputs:
+  outputs = { self, nixpkgs , homeManager, neovim, rust-overlay, zig-overlay, zen-browser, nixgl, ...}@inputs:
   let
     system = "x86_64-linux";
-    overlays = [ (import rust-overlay) zig-overlay.overlays.default ];
+    overlays = [ (import rust-overlay) zig-overlay.overlays.default nixgl.overlay ];
     pkgs = import nixpkgs {inherit system overlays;};
     neovim-package = neovim.packages.${system}.default;
     python-packages = (pkgs.python312.withPackages (pp: [
@@ -44,6 +48,9 @@
       pkgs.rust-bin.beta."2024-08-05".default
       pkgs.direnv
       pkgs.xorg.xkbcomp
+      pkgs.vesktop
+        # This requres impure
+        #pkgs.nixgl.auto.nixGLDefault
     ];
     list-of-pkgs = [
       neovim-package
