@@ -228,11 +228,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1726440980,
-        "narHash": "sha256-ChhIrjtdu5d83W+YDRH+Ec5g1MmM0xk6hJnkz15Ot7M=",
+        "lastModified": 1726611255,
+        "narHash": "sha256-/bxaYvIK6/d3zqpW26QFS0rqfd0cO4qreSNWvYLTl/w=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "a9c9cc6e50f7cbd2d58ccb1cd46a1e06e9e445ff",
+        "rev": "d2493de5cd1da06b6a4c3e97f4e7d5dd791df457",
         "type": "github"
       },
       "original": {
@@ -250,11 +250,11 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1726535649,
-        "narHash": "sha256-BF1ujHODKmyiTl/HcQS9lvIyR9foC9hM9kVG9MfSW/Y=",
+        "lastModified": 1726576757,
+        "narHash": "sha256-3dFuTQisCSkG/UXqNzbDG2xAFCh80wAmmbtMFzJx7LU=",
         "owner": "Lumesque",
         "repo": "nixvim-config",
-        "rev": "69035baa556e42127c18aed555294821dc6d8789",
+        "rev": "931c7dbb758b4958822056fc5e023fd9e4e3aaba",
         "type": "github"
       },
       "original": {
@@ -511,11 +511,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1726575046,
-        "narHash": "sha256-XD2qJ30wTLUz7BOXVz1wY/q+RJBvI7f6ksGJrYMbFAg=",
+        "lastModified": 1726619268,
+        "narHash": "sha256-YlVh/GZX/BA33RlkFRm3WZESFnVP0EXVLc/goXVYKVY=",
         "owner": "mitchellh",
         "repo": "zig-overlay",
-        "rev": "a2f15c93b689b31044d5604fb0cd5bac818daf01",
+        "rev": "04a63b5774dc3f9d5be373b03f4e461fe3b7d9d2",
         "type": "github"
       },
       "original": {
