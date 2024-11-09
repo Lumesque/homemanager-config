@@ -34,6 +34,8 @@ in
         cd (string repeat -n $this ../)
       '';
       ggpush = "git push origin $(git branch --show-current)";
+      ff = "find . -type f";
+      fd = "find . -type d";
     };
   };
 }

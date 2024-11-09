@@ -61,6 +61,10 @@ curl -X GET https://raw.githubusercontent.com/Lumesque/homemanager-config/master
         * fzf for a file and open it in neovim
     5. ggpush
         * git push to the remote branch of the same name
+    6. ff
+        * alias to `find . -type f`, or 'find file'
+    7. fd
+        * alias to `find . -type d`, or 'find directory'
 2. tmux
     1. Custom status bar
         * Tmux includes a custom status bar coloring
