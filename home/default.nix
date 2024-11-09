@@ -9,6 +9,9 @@
     username = "lumesque";
     homeDirectory = "/home/lumesque";
     packages = list-of-pkgs;
+    sessionVariables = {
+      EDITOR = "nvim";
+    };
     stateVersion = "24.05";
   };
   programs.home-manager.enable = true;
