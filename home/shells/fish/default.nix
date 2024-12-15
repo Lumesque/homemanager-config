@@ -36,6 +36,7 @@ in
       ggpush = "git push origin $(git branch --show-current)";
       ff = "find . -type f";
       fd = "find . -type d";
+      kmpv = "mpv --vo=kitty --sws-scaler=fast-bilinear --sws-fast=yes --vo-kitty-use-shm=yes";
     };
   };
 }
